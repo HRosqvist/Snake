@@ -5,6 +5,8 @@
  */
 package snake;
 
+import java.awt.Rectangle;
+
 /**
  *
  * @author Henrik Rosqvist
@@ -13,38 +15,32 @@ package snake;
 //Den här klassen hanterar ormen och dess kropp
 public class Body {
     private int x, y;
-    private int foodEaten;
     private String direction;
+    private Rectangle bodyRec;
     
     public Body()
     {
-        this.foodEaten = 0;
-        this.direction = "jag vet shi";
+        this.direction = "default";
     }
     
     public void move()
     {
         switch (direction) {
             case "up":
-                y -= GlobalValues.tile;
+                y -= GlobalValues.TILE;
                 break;
             case "down":
-                y += GlobalValues.tile;
+                y += GlobalValues.TILE;
                 break;
             case "right":
-                x += GlobalValues.tile;
+                x += GlobalValues.TILE;
                 break;
             case "left":
-                x -= GlobalValues.tile;
+                x -= GlobalValues.TILE;
                 break;
             default:
                 break;
         }
-    }
-    
-    public void addToBody()
-    {
-        this.foodEaten++;
     }
     
     public int getX()
@@ -65,16 +61,6 @@ public class Body {
     public void setY(int y)
     {
         this.y = y;
-    }
-    
-    public int getFoodEaten()
-    {
-        return this.foodEaten;
-    }
-    
-    public void setFoodEaten(int foodEaten)
-    {
-        this.foodEaten = foodEaten;
     }
     
     public String getDirection()
