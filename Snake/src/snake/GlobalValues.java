@@ -9,6 +9,6 @@ package snake;
  *
  * @author Henrik Rosqvist
  */
-public class Sprite {
-    
+public class GlobalValues {
+    public static int tile = 32;
 }
