@@ -14,33 +14,32 @@ import java.awt.Rectangle;
 
 //Den här klassen hanterar ormen och dess kropp
 public class Body {
-    private int x, y;
+    private int x, y, width, height;
+    private int[] lastPosition;
     private String direction;
-    private Rectangle bodyRec;
     
-    public Body()
+    public Body(int x, int y, String direction)
     {
-        this.direction = "default";
+        this.x = x;
+        this.y = y;
+        
+        this.width = GlobalValues.TILE;
+        this.height = GlobalValues.TILE;
+        
+        this.lastPosition = new int[2];
+        
+        this.direction = direction;
     }
     
     public void move()
     {
-        switch (direction) {
-            case "up":
-                y -= GlobalValues.TILE;
-                break;
-            case "down":
-                y += GlobalValues.TILE;
-                break;
-            case "right":
-                x += GlobalValues.TILE;
-                break;
-            case "left":
-                x -= GlobalValues.TILE;
-                break;
-            default:
-                break;
-        }
+        lastPosition[0] = x;
+        lastPosition[1] = y;
+    }
+    
+    public Rectangle getRect()
+    {
+        return new Rectangle(x, y, GlobalValues.TILE, GlobalValues.TILE);
     }
     
     public int getX()
@@ -71,5 +70,20 @@ public class Body {
     public void setDirection(String direction)
     {
         this.direction = direction;
+    }
+    
+    public int getWidth()
+    {
+        return this.width;
+    }
+    
+    public int getHeight()
+    {
+        return this.height;
+    }
+    
+    public int[] getLastPosition()
+    {
+        return this.lastPosition;
     }
 }
