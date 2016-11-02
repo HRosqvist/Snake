@@ -166,6 +166,26 @@ public class Board extends JPanel implements GlobalValues {
             System.out.println("New food piece created at: " + f.getX() + "," + f.getY());
         }
         
+        if (h.getY() < 0)
+        {
+            h.setY(TILESHIGH * TILE);
+        }
+        
+        if (h.getY() > TILESHIGH * TILE)
+        {
+            h.setY(0);
+        }
+        
+        if (h.getX() < 0)
+        {
+            h.setX(TILESWIDE * TILE);
+        }
+        
+        if (h.getX() > TILESWIDE * TILE)
+        {
+            h.setX(0);
+        }
+        
         for (Body body : b)
         {
             if (body.getRect().intersects(h.getRect()))
