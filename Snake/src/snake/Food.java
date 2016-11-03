@@ -12,10 +12,12 @@ import java.awt.Rectangle;
  *
  * @author Henrik Rosqvist
  */
+
+//Den här klassen hanterar matbitarna på skärmen
 public class Food {
-    private int x, y, width, height;
+    private int x, y, width, height; //Variabler
     
-    public Food(int x, int y)
+    public Food(int x, int y) //Konstruktor
     {
         this.x = x;
         this.y = y;
@@ -24,11 +26,12 @@ public class Food {
         this.height = GlobalValues.TILE;
     }
     
-    public Rectangle getRect()
+    public Rectangle getRect() //Rektangeln används för kollisioner
     {
         return new Rectangle(x, y, width, height);
     }
     
+    //Getters och setters efter denna raden
     public int getX()
     {
         return this.x;

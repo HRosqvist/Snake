@@ -14,11 +14,12 @@ import java.awt.Rectangle;
 
 //Den här klassen hanterar ormen och dess kropp
 public class Body {
+    //Deklarera variabler
     private int x, y, width, height;
     private int[] lastPosition;
     private String direction;
     
-    public Body(int x, int y, String direction)
+    public Body(int x, int y, String direction) //Konstruktor
     {
         this.x = x;
         this.y = y;
@@ -31,17 +32,18 @@ public class Body {
         this.direction = direction;
     }
     
-    public void move()
+    public void move() //Uppdaterar den förra positionen denna kroppsbiten hade
     {
         lastPosition[0] = x;
         lastPosition[1] = y;
     }
     
-    public Rectangle getRect()
+    public Rectangle getRect() //Rektangeln används för kollisioner
     {
         return new Rectangle(x, y, GlobalValues.TILE, GlobalValues.TILE);
     }
     
+    //Getters och setters efter denna raden
     public int getX()
     {
         return this.x;

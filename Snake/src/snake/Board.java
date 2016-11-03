@@ -18,21 +18,26 @@ import javax.swing.*;
  *
  * @author Henrik Rosqvist
  */
+
+//Den här klassen hanterar den största delen av spelet
 public class Board extends JPanel implements GlobalValues {
+    //Deklarerar objekt
     private Timer timer;
     private Random random;
     private Head h;
     private ArrayList<Body> b;
     private Food f;
     
+    //Deklarerar variabler
     private boolean ingame = true;
     private int score;
     
-    public Board()
+    public Board() //Konstruktor
     {
         initialize();
     }
     
+    //Den här metoden startar spelet och skapar alla objekt på sin startposition
     private void initialize()
     {
         addKeyListener(new TAdapter());
@@ -55,12 +60,7 @@ public class Board extends JPanel implements GlobalValues {
         System.out.println("Speed: " + (DELAY/PERIOD));
     }
     
-    @Override
-    public void addNotify()
-    {
-        super.addNotify();
-    }
-    
+    //Den här metoden ritar ut grafiken
     @Override
     public void paintComponent(Graphics g)
     {
@@ -81,19 +81,19 @@ public class Board extends JPanel implements GlobalValues {
         Toolkit.getDefaultToolkit().sync();
     }
     
-    private void drawHead(Graphics2D g)
+    private void drawHead(Graphics2D g) //Ritar huvudet
     {
         g.setColor(Color.BLACK);
         g.fillRect(h.getX(), h.getY(), h.getWidth(), h.getHeight());
     }
     
-    private void drawFood(Graphics2D g)
+    private void drawFood(Graphics2D g) //Ritar maten
     {
         g.setColor(Color.RED);
         g.fillRect(f.getX(), f.getY(), f.getWidth(), f.getHeight());
     }
     
-    private void drawText(Graphics2D g)
+    private void drawText(Graphics2D g) //Ritar texten
     {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 18));
         g.setColor(Color.WHITE);
@@ -101,12 +101,13 @@ public class Board extends JPanel implements GlobalValues {
         g.drawString("Score:" + score, 0, 36);
     }
     
+    //Den här metoden anropas i en loop tills programmet stängs
     private class scheduleTask extends TimerTask
     {
         @Override 
         public void run()
         {
-            //Lägg till den kod som uppdateras varje frame
+            //Rörelser för huvudet och kroppen
             h.move();
             
             for (Body body : b)
@@ -120,7 +121,7 @@ public class Board extends JPanel implements GlobalValues {
         }
     }
     
-    private class TAdapter extends KeyAdapter
+    private class TAdapter extends KeyAdapter //Knapptryckningar
     {   
         @Override
         public void keyPressed(KeyEvent e)
@@ -130,7 +131,7 @@ public class Board extends JPanel implements GlobalValues {
         }
     }
     
-    private void bodyMovement()
+    private void bodyMovement() //Flyttar varje del av kroppen till den position som den framför hade förra steget
     {
         if (!b.isEmpty())
         {
@@ -145,12 +146,13 @@ public class Board extends JPanel implements GlobalValues {
         }
     }
     
-    private void checkCollision()
+    private void checkCollision() //Kollisionskoden
     {
-        if (h.getRect().intersects(f.getRect()))
+        if (h.getRect().intersects(f.getRect())) //När huvudet går över maten
         {
             score += 10;
             
+            //Lägger till en ny kroppsdel
             if (b.isEmpty())
             {
                 b.add(new Body(h.getLastPosition()[0], h.getLastPosition()[1], h.getDirection()));
@@ -160,35 +162,36 @@ public class Board extends JPanel implements GlobalValues {
                 b.add(new Body(b.get(b.size() - 1).getLastPosition()[0], b.get(b.size() - 1).getLastPosition()[1], b.get(b.size() - 1).getDirection()));
             }
             
+            //Sätter en ny position för matbiten
             f.setX(random.nextInt(GlobalValues.TILESWIDE) * GlobalValues.TILE);
             f.setY(random.nextInt(GlobalValues.TILESHIGH) * GlobalValues.TILE);
             System.out.println("New body created at " + b.get(b.size() - 1).getX() + "," + b.get(b.size() - 1).getY());
             System.out.println("New food piece created at: " + f.getX() + "," + f.getY());
         }
         
+        //När huvudet går ut på y-axeln kommer det tillbaka på andra sidan
         if (h.getY() < 0)
         {
             h.setY(TILESHIGH * TILE);
         }
-        
-        if (h.getY() > TILESHIGH * TILE)
+        else if (h.getY() > TILESHIGH * TILE)
         {
             h.setY(0);
         }
         
+        //När huvudet går ut på x-axeln kommer det tillbaka på andra sidan
         if (h.getX() < 0)
         {
             h.setX(TILESWIDE * TILE);
         }
-        
-        if (h.getX() > TILESWIDE * TILE)
+        else if (h.getX() > TILESWIDE * TILE)
         {
             h.setX(0);
         }
         
         for (Body body : b)
         {
-            if (body.getRect().intersects(h.getRect()))
+            if (body.getRect().intersects(h.getRect())) //Om huvudet kommer i kontakt med kroppen avslutas spelet
             {
                 //Game over
                 gameOver();
@@ -197,7 +200,7 @@ public class Board extends JPanel implements GlobalValues {
         }
     }
     
-    private void gameOver()
+    private void gameOver() //Den här metoden avslutar spelet och startar om
     {
         int finalScore = score;
         score = 0;
@@ -209,10 +212,13 @@ public class Board extends JPanel implements GlobalValues {
         showMessage("GAME OVER\nYour score was: " + finalScore);
     }
     
-    private void showMessage(String message) {
-        EventQueue.invokeLater(new Runnable() {
+    private void showMessage(String message)  //Visar en dialog med ett meddelande
+    { 
+        EventQueue.invokeLater(new Runnable() 
+        {
             @Override
-            public void run() {
+            public void run() 
+            {
                 JOptionPane.showMessageDialog(null, message);
             }
         });

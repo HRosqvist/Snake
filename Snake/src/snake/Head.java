@@ -13,12 +13,15 @@ import java.awt.event.KeyEvent;
  *
  * @author Henrik Rosqvist
  */
+
+//Den här klassen hanterar huvudet av ormen
 public class Head {
+    //Deklarerar variabler
     private int x, y, width, height;
     private int[] lastPosition;
     private String direction;
     
-    public Head(int x, int y)
+    public Head(int x, int y) //Konstruktor
     {
         this.x = x;
         this.y = y;
@@ -31,7 +34,7 @@ public class Head {
         this.direction = "default";
     }
     
-    public void move()
+    public void move() //Sparar x och y värdena huvudet hade innan det flyttade sig
     {
         switch (direction) {
             case "up":
@@ -59,7 +62,7 @@ public class Head {
         }
     }
     
-    public void KeyPressed(KeyEvent e)
+    public void KeyPressed(KeyEvent e) //Ändrar riktningen när man trycker på en knapp
     {
         int key = e.getKeyCode();
         
@@ -81,11 +84,14 @@ public class Head {
         }
     }
     
+    //Den här rektangeln används för kollisioner
     public Rectangle getRect()
     {
         return new Rectangle(x, y, GlobalValues.TILE, GlobalValues.TILE);
     }
     
+    
+    //Getters och setters efter denna raden
     public int getX()
     {
         return this.x;

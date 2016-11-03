@@ -12,6 +12,8 @@ import javax.swing.JFrame;
  *
  * @author Henrik Rosqvist
  */
+
+//Denna klassen startar programmet
 public class Snake extends JFrame {
 
     public Snake()
@@ -19,6 +21,7 @@ public class Snake extends JFrame {
         startGraphics();
     }
     
+    //Skapar ett nytt fönster i mitten av skärmen
     private void startGraphics()
     {
         add(new Board());
@@ -33,6 +36,7 @@ public class Snake extends JFrame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //Startar programmet
         EventQueue.invokeLater(new Runnable()
         {
            @Override
