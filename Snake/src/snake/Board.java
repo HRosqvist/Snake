@@ -97,8 +97,7 @@ public class Board extends JPanel implements GlobalValues {
     {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 18));
         g.setColor(Color.WHITE);
-        g.drawString("Head position: (" + h.getX() + ", " + h.getY() + ")", 0, 18);
-        g.drawString("Score:" + score, 0, 36);
+        g.drawString("Score:" + score, 0, 18);
     }
     
     //Den här metoden anropas i en loop tills programmet stängs
@@ -209,7 +208,7 @@ public class Board extends JPanel implements GlobalValues {
         b.clear();
         h.setDirection("default");
                 
-        showMessage("GAME OVER\nYour score was: " + finalScore);
+        showMessage("      GAME OVER\nYour score was: " + finalScore); //Mellanslagen i början gör att första delen hamnar i mitten
     }
     
     private void showMessage(String message)  //Visar en dialog med ett meddelande
